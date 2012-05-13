@@ -30,7 +30,7 @@ public class PriorityJobExecutor extends Executor {
       e.printStackTrace();
     }
     finally {
-      pausedExecutor.pauseOrCont();
+      pausedExecutor.cont();
     }
   }
 }

@@ -38,7 +38,7 @@ public class PriorityJobQueueDecisionHandler extends QueueDecisionHandler {
   public boolean shouldSchedule(Task task, List<Action> actions) {
 
     // if are some idle executor, then schedule normally
-    if (!getAvailableExecutors().isEmpty()) {
+    if (!getAvailableExecutors().isEmpty() || !PriorityJobGlobalConfiguration.isUseJobPriorityEnabled()) {
       return true;
     }
 
@@ -64,7 +64,7 @@ public class PriorityJobQueueDecisionHandler extends QueueDecisionHandler {
       };
       Task lowestProrityTask = Ordering.<Task> from(taskPriorityComparator).nullsLast().min(runningLowestPriorityTasks.keySet());
       Executor lowestPriorityExecutor = runningLowestPriorityTasks.get(lowestProrityTask);
-      lowestPriorityExecutor.pauseOrCont();
+      lowestPriorityExecutor.pause();
       Executor newExecutor = new PriorityJobExecutor(lowestPriorityExecutor, task);
       newExecutor.start();
 
