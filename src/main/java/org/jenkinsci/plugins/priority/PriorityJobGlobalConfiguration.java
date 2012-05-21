@@ -14,7 +14,7 @@ public class PriorityJobGlobalConfiguration extends GlobalConfiguration {
 
   private static boolean useJobPriority;
 
-//  @Override
+  @Override
   public boolean configure(StaplerRequest req, JSONObject json) throws hudson.model.Descriptor.FormException {
     json = json.getJSONObject("jobPriority");
     useJobPriority = json.getBoolean("useJobPriority");
